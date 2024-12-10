@@ -1,5 +1,7 @@
 extends Area2D
 
+signal died
+
 var start_pos: Vector2 = Vector2.ZERO
 var speed: int = 0
 
@@ -28,8 +30,18 @@ func start(pos):
 	$ShootTimer.start()
 
 func _on_move_timer_timeout() -> void:
-	pass # Replace with function body.
+	speed = randf_range(75,100)
 
 
 func _on_shoot_timer_timeout() -> void:
-	pass # Replace with function body.
+	$ShootTimer.wait_time = randf_range(4,20)
+	$ShootTimer.start()
+
+
+func explode() -> void:
+	speed = 0
+	$AnimationPlayer.play("explode")
+	set_deferred("monitoring", false)
+	died.emit(5)
+	await $AnimationPlayer.animation_finished
+	queue_free()
