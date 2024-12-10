@@ -79,7 +79,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [6]
 }
 
 [sub_resource type="Animation" id="Animation_ceupw"]
@@ -125,6 +125,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_gjy6i"]
 resource_name = "explode"
+length = 0.55
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -132,10 +133,10 @@ tracks/0/path = NodePath("Explosion:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0]
+"values": [0, 1, 2, 3, 4, 5]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -144,7 +145,7 @@ tracks/1/path = NodePath("Explosion:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.0333333),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("3_6hcxb")]
@@ -156,10 +157,10 @@ tracks/2/path = NodePath("Explosion:hframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.0333333),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [6]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_14386"]
@@ -169,7 +170,7 @@ _data = {
 "explode": SubResource("Animation_gjy6i")
 }
 
-[node name="Bon-bon" type="Area2D"]
+[node name="Bon-bon" type="Area2D" groups=["enemies"]]
 script = ExtResource("1_uqgtw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -193,9 +194,8 @@ one_shot = true
 one_shot = true
 
 [node name="Explosion" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("3_6hcxb")
-hframes = 4
+hframes = 6
 
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

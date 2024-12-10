@@ -14,7 +14,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	position.y += speed * delta
+	if position.y > screensize.y + 32:
+		start(start_pos)
 
 func start(pos):
 	speed = 0
@@ -40,6 +42,7 @@ func _on_shoot_timer_timeout() -> void:
 
 func explode() -> void:
 	speed = 0
+	$Sprite2D.hide()
 	$AnimationPlayer.play("explode")
 	set_deferred("monitoring", false)
 	died.emit(5)
