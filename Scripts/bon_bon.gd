@@ -4,6 +4,7 @@ signal died
 
 var start_pos: Vector2 = Vector2.ZERO
 var speed: int = 0
+var laser_scene = preload("res://Scenes/enemy_laser.tscn")
 
 @onready var screensize = get_viewport_rect().size
 
@@ -36,6 +37,9 @@ func _on_move_timer_timeout() -> void:
 
 
 func _on_shoot_timer_timeout() -> void:
+	var l = laser_scene.instantiate()
+	get_tree().root.add_child(l)
+	l.start(position)
 	$ShootTimer.wait_time = randf_range(4,20)
 	$ShootTimer.start()
 
